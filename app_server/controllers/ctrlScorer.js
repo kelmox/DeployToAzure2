@@ -1,7 +1,7 @@
 
 const winnerlist = function(req, res){
     res.render('khlscorer',{
-        winners:
+        scorer:
         [
             {year:'08-09', player:'Sergei Mozyakin', team: 'Atlant'},
             {year:'09-10', player:'Sergei Mozyakin', team: 'Atlant'},
