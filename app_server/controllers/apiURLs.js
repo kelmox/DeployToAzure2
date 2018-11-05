@@ -3,7 +3,7 @@ const apiURL = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    apiURL.server = 'https://knuuttila.azurewebistes.net';
+    apiURL.server = 'https://knuuttila.azurewebsites.net';
 }
 
 module.exports = apiURL;
