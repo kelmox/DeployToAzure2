@@ -1,21 +1,33 @@
+const request = require('request');
+const apiURL = require('./apiURLs');
 
-const winnerlist = function(req, res){
-    res.render('khlscorer',{
-        scorer:
-        [
-            {year:'08-09', player:'Sergei Mozyakin', team: 'Atlant'},
-            {year:'09-10', player:'Sergei Mozyakin', team: 'Atlant'},
-            {year:'10-11', player:'Alexandr Radulov', team: 'Salavat Yulaev'},
-            {year:'11-12', player:'Alexandr Radulov', team: 'Salavat Yulaev'},
-            {year:'12-13', player:'Sergei Mozyakin', team: 'Metallurg'},
-            {year:'13-14', player:'Sergei Mozyakin', team: 'Metallurg'},
-            {year:'14-15', player:'Alexandr Radulov', team: 'CSKA'},
-            {year:'15-16', player:'Sergei Mozyakin', team: 'Metallurg'},
-            {year:'16-17', player:'Sergei Mozyakin', team: 'Metallurg'},
-            {year:'17-18', player:'Ilya Kovalchuk', team: 'SKA'}
-        ]});
-};
+const scorerlist = function(req, res){
+    const path = '/api/khlscorer';
+    const requestOptions = {
+        url : apiURL.server + path,
+        method : 'GET',
+        json : {},
+        qs : {}
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            if (err){
+                res.render('error', {message: err.message});
+            } else if (response.statusCode !== 200){
+                res.render('error', {message: 'Error accessing API: ' + response.statusMessage + " ("+ response.statusCode + ")"});
+            } else if (!(body instanceof Array)){
+                res.render('error', {message: 'Unexpected response data'});
+            } else if (!body.length){
+                res.render('error', {message: 'No documents in collection'});
+            } else {
+                res.render('khlscorer', {scorers: body});
+            }
+        }
+    )
+}
 
 module.exports = {
-    winnerlist
+    scorerlist
 };

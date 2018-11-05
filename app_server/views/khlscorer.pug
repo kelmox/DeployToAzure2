@@ -4,6 +4,5 @@ block content
   h1= 'Top Scorers'
 
   ul
-    each winner in scorer
-      li= winner.year + ': ' + winner.player + ' (' + winner.team + ')'
-
+    each scorer in scorers
+      li= scorer.year + ': ' + scorer.player + ' (' + scorer.team + ')'

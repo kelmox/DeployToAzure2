@@ -9,6 +9,6 @@ const ctrlScorer = require('../controllers/ctrlScorer');
 // Defining the routes and associating the routes to their corresponding controllers
 router.get('/', ctrlMain.index);  // Home page
 router.get('/khlwinners', ctrlWinners.winnerlist);
-router.get('/khlscorer', ctrlScorer.winnerlist);
+router.get('/khlscorer', ctrlScorer.scorerlist);
 
 module.exports = router;

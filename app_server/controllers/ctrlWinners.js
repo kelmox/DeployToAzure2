@@ -1,20 +1,33 @@
+const request = require('request');
+const apiURL = require('./apiURLs');
 
 const winnerlist = function(req, res){
-    res.render('khlwinners',{
-        winners:
-        [
-            {year:'08-09', team:'Ak Bars Kazan'},
-            {year:'09-10', team:'Ak Bars Kazan'},
-            {year:'10-11', team:'Salavat Yulaev Ufa'},
-            {year:'11-12', team:'Dynamo Moscow'},
-            {year:'12-13', team:'Dynamo Moscow'},
-            {year:'13-14', team:'Metallurg Magnitogorsk'},
-            {year:'14-15', team:'SKA Saint Petersburg'},
-            {year:'15-16', team:'Metallurg Magnitogorsk'},
-            {year:'16-17', team:'SKA Saint Petersburg'},
-            {year:'17-18', team:'Ak Bars Kazan'},
-        ]});
-};
+    const path = '/api/khlwinner';
+    const requestOptions = {
+        url : apiURL.server + path,
+        method : 'GET',
+        json : {},
+        qs : {}
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            if (err){
+                res.render('error', {message: err.message});
+            } else if (response.statusCode !== 200){
+                res.render('error', {message: 'Error accessing API: ' + response.statusMessage + " ("+ response.statusCode + ")"});
+            } else if (!(body instanceof Array)){
+                res.render('error', {message: 'Unexpected response data'});
+            } else if (!body.length){
+                res.render('error', {message: 'No documents in collection'});
+            } else {
+                res.render('khlwinners', {winners: body});
+            }
+        }
+    )
+}
+
 module.exports = {
     winnerlist
 };

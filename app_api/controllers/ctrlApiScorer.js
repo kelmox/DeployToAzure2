@@ -7,21 +7,23 @@ const scorerModel = mongoose.model('khlscorer');
 const scorerList = function (req, res) {
     scorerModel.find({}, function(err, scorer){
         if (err){
-            res
-                .status(404)
-                .json(err);
+            res.status(404).json(err);
         }
         else{
-            res
-                .status(200)
-                .json(scorer);
+            res.status(200).json(scorer);
         }
     });};
 
 const addScorer = function (req, res) {
-    res
-        .status(201)
-        .json({"Add scorer" : "Work in progress"});
+    scorerModel.create(req.body, function(err, newScorer){
+            if (err){
+                res.status(400).json(err);
+            }
+            else{
+                res.status(201).json(newScorer);
+            }
+        }
+    );
 };
 
 module.exports = {
