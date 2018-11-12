@@ -2,7 +2,7 @@ body {
     font: 14px "Ubuntu", Helvetica, Arial, sans-serif;
 }
 
-a {
+a.navbutton {
     color: #000000;
     font-weight: bold;
     transition: background-color 1s, color 1s;
@@ -11,15 +11,25 @@ a {
     margin-right: 10px;
 }
 
-a:hover{
+a.navbutton:hover{
     color: white;
     background-color: darkred;
+}
 
+a {
+    color: red
+}
+
+a:hover{
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 h1{
     font-size: 30px;
     font-weight: bold;
+    padding-bottom: 10px;
 }
 
 .navbar{
@@ -44,7 +54,6 @@ img{
 
 ul {
     list-style-type: none;
-
 }
 
 li{

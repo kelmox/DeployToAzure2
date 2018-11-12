@@ -1,6 +1,37 @@
 const request = require('request');
 const apiURL = require('./apiURLs');
 
+const showForm = function(req, res){
+    res.render('scorer_add');
+};
+
+const addData = function(req, res){
+    const path = '/api/khlscorer';
+
+    const postdata = {
+        year: req.body.year,
+        player: req.body.player,
+        team: req.body.team
+    };
+
+    const requestOptions = {
+        url : apiURL.server + path,
+        method : 'POST',
+        json : postdata
+    };
+
+    request(
+        requestOptions,
+        function (err, response) {
+            if(response.statusCode === 201){
+                res.redirect('/khlscorer');
+            } else {
+                res.render('error', {message: 'Error addding data: ' + response.statusMessage + ' (' + response.statusCode + ')'});
+            }
+        }
+    )
+};
+
 const scorerlist = function(req, res){
     const path = '/api/khlscorer';
     const requestOptions = {
@@ -26,8 +57,11 @@ const scorerlist = function(req, res){
             }
         }
     )
-}
+
+};
 
 module.exports = {
-    scorerlist
+    scorerlist,
+    showForm,
+    addData
 };

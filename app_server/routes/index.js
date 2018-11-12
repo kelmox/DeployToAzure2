@@ -10,5 +10,9 @@ const ctrlScorer = require('../controllers/ctrlScorer');
 router.get('/', ctrlMain.index);  // Home page
 router.get('/khlwinners', ctrlWinners.winnerlist);
 router.get('/khlscorer', ctrlScorer.scorerlist);
+router
+    .route('/khlscorer/add')
+    .get(ctrlScorer.showForm)
+    .post(ctrlScorer.addData);
 
 module.exports = router;
